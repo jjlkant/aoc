@@ -7,7 +7,7 @@ describe("Day 4 | Part 1", () => {
     });
 });
 
-describe("Day 4 | Part 1", () => {
+describe("Day 4 | Part 2", () => {
     test("Example input", () => {
         expect(process_file("./2023/input/day4-example.txt", true)).toBe(30);
     });
