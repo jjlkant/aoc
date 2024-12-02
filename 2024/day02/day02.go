@@ -58,7 +58,7 @@ func processReportsDampened(reports [][]int) int {
 			numSafe += 1
 			continue
 		}
-		for idx, _ := range report {
+		for idx := range report {
 			if isReportSafe(removeIndex(report, idx)) {
 				numSafe += 1
 				break
