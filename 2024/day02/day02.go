@@ -112,10 +112,3 @@ func readInput(fname string) [][]int {
 
 	return reports
 }
-
-func diffInt(a, b int) int {
-	if a < b {
-		return b - a
-	}
-	return a - b
-}
