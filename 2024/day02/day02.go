@@ -16,22 +16,22 @@ func main() {
 
 func partOne() {
 	fmt.Println("Advent of Code: 2024 - Day 02 - Part 1")
-	reports := readInput("02_1_ex.txt")
+	reports := readInput("example.txt")
 	numSafe := processReports(reports)
-	fmt.Printf("  Total distance between IDs: %d\n", numSafe)
-	reports = readInput("02_1_input.txt")
+	fmt.Printf("  Total safe reports: %d\n", numSafe)
+	reports = readInput("input.txt")
 	numSafe = processReports(reports)
-	fmt.Printf("  Total distance between IDs: %d\n", numSafe)
+	fmt.Printf("  Total safe reports: %d\n", numSafe)
 }
 
 func partTwo() {
 	fmt.Println("Advent of Code: 2024 - Day 02 - Part 2")
-	reports := readInput("02_1_ex.txt")
+	reports := readInput("example.txt")
 	numSafe := processReportsDampened(reports)
-	fmt.Printf("  Total distance between IDs: %d\n", numSafe)
-	reports = readInput("02_1_input.txt")
+	fmt.Printf("  Total safe dampened reports: %d\n", numSafe)
+	reports = readInput("input.txt")
 	numSafe = processReportsDampened(reports)
-	fmt.Printf("  Total distance between IDs: %d\n", numSafe)
+	fmt.Printf("  Total safe dampened: %d\n", numSafe)
 }
 
 func processReports(reports [][]int) int {
