@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 	"github.com/jjlkant/aoc/2025/utils"
 )
 
@@ -16,12 +17,16 @@ func main() {
 	fmt.Printf("Successfully read %d lines for Day 1.\n", len(lines))
 	
 	// --- PART 1 ---
+	start := time.Now()
 	resultPart1 := solvePart1(lines)
-	fmt.Printf("Part 1 Solution: %v\n", resultPart1)
+	elapsed := time.Since(start)
+	fmt.Printf("Part 1 Solution: %v (took %s)\n", resultPart1, elapsed)
 
 	// --- PART 2 ---
+	// start = time.Now()
 	// resultPart2 := solvePart2(lines)
-	// fmt.Printf("Part 2 Solution: %v\n", resultPart2)
+	// elapsed = time.Since(start)
+	// fmt.Printf("Part 2 Solution: %v (took %s)\n", resultPart2, elapsed)
 }
 
 // This function holds your Part 1 logic and is what you will test.
