@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"testing"
 	"strings"
+	"testing"
 )
 
 // NOTE: Ensure your solving logic is in functions named solvePart1 and solvePart2 in main.go!
@@ -14,34 +14,32 @@ import (
 func readTestInput() ([]string, error) {
 	// Determines the directory of the currently running test file
 	dir, err := os.Getwd()
-    if err != nil {
-        return nil, err
-    }
-    
+	if err != nil {
+		return nil, err
+	}
+
 	inputPath := filepath.Join(dir, "test_input.txt")
-	
+
 	data, err := os.ReadFile(inputPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not read test input file at %s: %w", inputPath, err)
 	}
-	
+
 	inputString := strings.TrimSpace(string(data))
 	lines := strings.Split(inputString, "\n")
-    
+
 	return lines, nil
 }
 
-
 func TestPart1(t *testing.T) {
-	// !!! REPLACE 0 WITH THE CORRECT EXPECTED ANSWER FROM THE EXAMPLE !!!
-	const expected = 0 
-    
+	const expected = 1227775554
+
 	lines, err := readTestInput()
 	if err != nil {
 		t.Fatalf("Failed to read test input: %v", err)
 	}
 
-	result := solvePart1(lines) 
+	result := solvePart1(lines)
 
 	if fmt.Sprint(result) != fmt.Sprint(expected) {
 		t.Errorf("Part 1: Got %v, expected %v", result, expected)
@@ -50,20 +48,19 @@ func TestPart1(t *testing.T) {
 	}
 }
 
-// func TestPart2(t *testing.T) {
-// 	// !!! REPLACE 0 WITH THE CORRECT EXPECTED ANSWER FROM THE EXAMPLE !!!
-// 	const expected = 0 
-// 	
-// 	lines, err := readTestInput()
-// 	if err != nil {
-// 		t.Fatalf("Failed to read test input: %v", err)
-// 	}
+func TestPart2(t *testing.T) {
+	const expected = 4174379265
 
-// 	result := solvePart2(lines)
+	lines, err := readTestInput()
+	if err != nil {
+		t.Fatalf("Failed to read test input: %v", err)
+	}
 
-// 	if fmt.Sprint(result) != fmt.Sprint(expected) {
-// 		t.Errorf("Part 2: Got %v, expected %v", result, expected)
-// 	} else {
-// 		t.Logf("Part 2: Passed (Result: %v)", result)
-// 	}
-// }
+	result := solvePart2(lines)
+
+	if fmt.Sprint(result) != fmt.Sprint(expected) {
+		t.Errorf("Part 2: Got %v, expected %v", result, expected)
+	} else {
+		t.Logf("Part 2: Passed (Result: %v)", result)
+	}
+}
