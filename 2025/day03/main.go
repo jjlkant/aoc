@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/jjlkant/aoc/2025/utils"
@@ -16,7 +15,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("Successfully read %d lines for Day 1.\n", len(lines))
+	fmt.Printf("Successfully read %d lines for Day 3.\n", len(lines))
 
 	// --- PART 1 ---
 	start := time.Now()
@@ -40,33 +39,34 @@ func calculateJoltage(joltageValues []int) int {
 	return joltage
 }
 
-func getJoltageForBatteryBank(bank string, nValues int) int {
-	ratings := []rune(bank)
+func getJoltageForBatteryBank(ratings string, nValues int) int {
 	nRatings := len(ratings)
 
-	joltageValues := make([]int, nValues)
+	// Use a fixed-size array for small nValues to avoid heap allocation
+	var joltageValues [12]int // 12 is the max nValues used in this program
+	// Only use the needed prefix
+	joltageSlice := joltageValues[:nValues]
 
-	for i, rating := range ratings {
-		ratingValue, err := strconv.Atoi(string(rating))
-		if err != nil {
-			panic(err)
-		}
+	for i := range nRatings {
+		rating := ratings[i]
+		// Fast digit conversion (assumes input is always '0'-'9')
+		ratingValue := int(rating - '0')
 
-		for idx, value := range joltageValues {
+		for idx, value := range joltageSlice {
 			remainingValues := nRatings - i
 			if nValues-idx > remainingValues {
 				continue
 			}
 			if ratingValue > value {
-				joltageValues[idx] = ratingValue
-				for i := idx + 1; i < nValues; i++ {
-					joltageValues[i] = 1
+				joltageSlice[idx] = ratingValue
+				for j := idx + 1; j < nValues; j++ {
+					joltageSlice[j] = 1
 				}
 				break
 			}
 		}
 	}
-	joltage := calculateJoltage(joltageValues)
+	joltage := calculateJoltage(joltageSlice)
 	return joltage
 }
 
