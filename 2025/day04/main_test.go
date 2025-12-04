@@ -11,7 +11,8 @@ import (
 // NOTE: Ensure your solving logic is in functions named solvePart1 and solvePart2 in main.go!
 
 // Helper function to read the TEST input file
-func readTestInput() ([][]string, error) {
+
+func readTestInput() ([][]byte, error) {
 	// Determines the directory of the currently running test file
 	dir, err := os.Getwd()
 	if err != nil {
@@ -28,11 +29,10 @@ func readTestInput() ([][]string, error) {
 	inputString := strings.TrimSpace(string(data))
 	lines := strings.Split(inputString, "\n")
 
-	var result [][]string
+	var result [][]byte
 	for _, line := range lines {
 		if line != "" {
-			chars := strings.Split(line, "")
-			result = append(result, chars)
+			result = append(result, []byte(line))
 		}
 	}
 	return result, nil

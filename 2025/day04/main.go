@@ -35,16 +35,12 @@ type Offset struct {
 	y int
 }
 
-func getAccessibleLocations(grid [][]string, nIterations int, remove bool) int {
+// For better performance, use [][]byte instead of [][]string for grid.
+func getAccessibleLocations(grid [][]byte, nIterations int, remove bool) int {
 	neighborOffsets := []Offset{
-		{-1, -1},
-		{-1, 0},
-		{-1, 1},
-		{0, -1},
-		{0, 1},
-		{1, -1},
-		{1, 0},
-		{1, 1},
+		{-1, -1}, {-1, 0}, {-1, 1},
+		{0, -1}, {0, 1},
+		{1, -1}, {1, 0}, {1, 1},
 	}
 	lenX := len(grid)
 	lenY := len(grid[0])
@@ -53,18 +49,18 @@ func getAccessibleLocations(grid [][]string, nIterations int, remove bool) int {
 		updated := false
 		for i := range lenX {
 			for j := range lenY {
-				if grid[i][j] != "@" {
+				if grid[i][j] != '@' {
 					continue
 				}
 				hits := 0
 				for _, neighborOffset := range neighborOffsets {
 					checkX := i + neighborOffset.x
 					checkY := j + neighborOffset.y
-					if checkX < 0 || checkX >= lenX || checkY < 0 || checkY >= lenX {
+					if checkX < 0 || checkX >= lenX || checkY < 0 || checkY >= lenY {
 						continue
 					}
-					if grid[checkX][checkY] == "@" {
-						hits += 1
+					if grid[checkX][checkY] == '@' {
+						hits++
 					}
 					if hits >= 4 {
 						break
@@ -74,10 +70,10 @@ func getAccessibleLocations(grid [][]string, nIterations int, remove bool) int {
 					continue
 				}
 				if remove {
-					grid[i][j] = "X"
+					grid[i][j] = 'X'
 				}
 				updated = true
-				accessableLocations += 1
+				accessableLocations++
 			}
 		}
 		if !updated {
@@ -88,11 +84,11 @@ func getAccessibleLocations(grid [][]string, nIterations int, remove bool) int {
 }
 
 // This function holds your Part 1 logic and is what you will test.
-func solvePart1(chars [][]string) interface{} {
+func solvePart1(chars [][]byte) interface{} {
 	return getAccessibleLocations(chars, 1, false)
 }
 
 // This function holds your Part 2 logic.
-func solvePart2(chars [][]string) interface{} {
+func solvePart2(chars [][]byte) interface{} {
 	return getAccessibleLocations(chars, 1000, true)
 }

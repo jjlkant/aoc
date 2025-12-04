@@ -40,7 +40,7 @@ func ReadInputLines() ([]string, error) {
 	return result, nil
 }
 
-func ReadInputGrid() ([][]string, error) {
+func ReadInputGrid() ([][]byte, error) {
 	// The key: Caller(1) gets the path of the file that *called* this function (e.g., day01/main.go)
 	_, filename, _, ok := runtime.Caller(1)
 	if !ok {
@@ -60,11 +60,10 @@ func ReadInputGrid() ([][]string, error) {
 
 	// Handles splitting into grid and cleaning up empty lines
 	lines := strings.Split(inputString, "\n")
-	var result [][]string
+	var result [][]byte
 	for _, line := range lines {
 		if line != "" {
-			chars := strings.Split(line, "")
-			result = append(result, chars)
+			result = append(result, []byte(line))
 		}
 	}
 	return result, nil
