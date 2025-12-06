@@ -79,26 +79,36 @@ func simplifyFreshIngredients(lines []string) ([]Range, int) {
 
 // This function holds your Part 1 logic and is what you will test.
 func solvePart1(lines []string) any {
-	freshIngredients, blankLineIdx := simplifyFreshIngredients(lines)
+       freshIngredients, blankLineIdx := simplifyFreshIngredients(lines)
 
-	amountFreshIngredients := 0
-	for _, line := range lines[blankLineIdx+1:] {
-		ingredientId, err := strconv.Atoi(line)
-		if err != nil {
-			panic(err)
-		}
-		for _, ingredientRange := range freshIngredients {
-			// Given the sorted ranges, we can stop the loop if start > id
-			if ingredientRange.start > ingredientId {
-				break
-			}
-			if ingredientId >= ingredientRange.start && ingredientId <= ingredientRange.end {
-				amountFreshIngredients += 1
-				break
-			}
-		}
-	}
-	return amountFreshIngredients
+       // Helper: binary search for ingredientId in sorted ranges
+       contains := func(ranges []Range, id int) bool {
+	       left, right := 0, len(ranges)-1
+	       for left <= right {
+		       mid := left + (right-left)/2
+		       r := ranges[mid]
+		       if id < r.start {
+			       right = mid - 1
+		       } else if id > r.end {
+			       left = mid + 1
+		       } else {
+			       return true
+		       }
+	       }
+	       return false
+       }
+
+       amountFreshIngredients := 0
+       for _, line := range lines[blankLineIdx+1:] {
+	       ingredientId, err := strconv.Atoi(line)
+	       if err != nil {
+		       panic(err)
+	       }
+	       if contains(freshIngredients, ingredientId) {
+		       amountFreshIngredients++
+	       }
+       }
+       return amountFreshIngredients
 }
 
 // This function holds your Part 2 logic.
