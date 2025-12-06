@@ -40,6 +40,30 @@ func ReadInputLines() ([]string, error) {
 	return result, nil
 }
 
+func ReadInputLinesWithEmpty() ([]string, error) {
+	// The key: Caller(1) gets the path of the file that *called* this function (e.g., day01/main.go)
+	_, filename, _, ok := runtime.Caller(1)
+	if !ok {
+		return nil, fmt.Errorf("failed to get caller information")
+	}
+
+	dir := filepath.Dir(filename)
+	inputPath := filepath.Join(dir, "input.txt")
+
+	data, err := os.ReadFile(inputPath)
+	if err != nil {
+		return nil, fmt.Errorf("could not read input file at %s: %w", inputPath, err)
+	}
+
+	inputString := string(data)
+	inputString = strings.TrimSpace(inputString)
+
+	// Handles splitting and cleaning up empty lines
+	lines := strings.Split(inputString, "\n")
+
+	return lines, nil
+}
+
 func ReadInputGrid() ([][]byte, error) {
 	// The key: Caller(1) gets the path of the file that *called* this function (e.g., day01/main.go)
 	_, filename, _, ok := runtime.Caller(1)
