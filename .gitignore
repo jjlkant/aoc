@@ -63,3 +63,7 @@ package-lock.json
 .eslintcache
 *v8.log
 /lib/
+
+# Don't include the actual puzzle inputs
+**/input.txt
+**/test_input.txt
