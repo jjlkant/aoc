@@ -31,42 +31,25 @@ func main() {
 	fmt.Printf("Part 2 Solution: %v (took %s)\n", resultPart2, elapsed)
 }
 
-// This function holds your Part 1 logic and is what you will test.
-func solvePart1(lines []string) interface{} {
-	beamIndex := strings.Index(lines[0], "S")
-	beams := make([]bool, len(lines[0]))
-	beams[beamIndex] = true
-	totalSplits := 0
-	for _, line := range lines[1:] {
-		for i := range len(line) {
-			if beams[i] && string(line[i]) == "^" {
-				beams[i] = false
-				beams[i+1] = true
-				beams[i-1] = true
-				totalSplits += 1
-			}
-		}
-	}
-	return totalSplits
-}
-
-// This function holds your Part 2 logic.
-func solvePart2(lines []string) interface{} {
-	beamIndex := strings.Index(lines[0], "S")
+func solve(lines []string) (splits, timelines int) {
+	beamIndex := strings.IndexRune(lines[0], 'S')
 	beams := make([]int, len(lines[0]))
 	beams[beamIndex] = 1
 	for _, line := range lines[1:] {
-		for i := range len(line) {
-			if beams[i] > 0 && string(line[i]) == "^" {
+		for i := range line {
+			if beams[i] > 0 && line[i] == '^' {
 				beams[i+1] += beams[i]
 				beams[i-1] += beams[i]
 				beams[i] = 0
+				splits++
 			}
 		}
 	}
-	totalTimelines := 0
 	for _, beam := range beams {
-		totalTimelines += beam
+		timelines += beam
 	}
-	return totalTimelines
+	return
 }
+
+func solvePart1(lines []string) any { splits, _ := solve(lines); return splits }
+func solvePart2(lines []string) any { _, timelines := solve(lines); return timelines }
